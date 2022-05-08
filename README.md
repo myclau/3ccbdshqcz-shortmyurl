@@ -232,4 +232,5 @@ Do not have record of the shortenUrl
 1. should have a loadbalancer in front of the apis
 2. the api can be replicate as many as need (can use k8s or something like aws autoscaling group)
 3. set one of the mongo db is enough for this api as the information is quite narrow to only its function, but need to consider the resilient
+4. if avaliable For GET  request use read replica , For POST request use read-write replica
 
