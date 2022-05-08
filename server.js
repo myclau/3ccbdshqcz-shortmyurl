@@ -49,6 +49,9 @@ class HandlerGenerator {
 		
 		//res.status(200).send("OK")
 	}
+	async healthCheck(req,res){
+		res.status(200).send("OK")
+	}
 	async newurl(req,res){
 		if(req.body.url != null){
 			//console.log(req.body.url);
@@ -126,6 +129,7 @@ function main () {
   // Routes & Handlers
   app.post('/newurl', handlers.newurl );
   app.get('^/[a-zA-Z0-9]{9}', handlers.redirectOrgurl );
+  app.get('^/healthz', handlers.healthCheck );
   app.listen(port, () => console.log(`Server is listening on port: ${port}`));
 }
 

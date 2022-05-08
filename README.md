@@ -41,7 +41,7 @@ Location: https://www.google.com
 Vary: Accept
 Content-Type: text/plain; charset=utf-8
 Content-Length: 51
-Date: Sun, 01 Dec 2019 04:12:42 GMT
+Date: Sun, 01 May 2022 04:12:42 GMT
 Connection: keep-alive
 
 ```
@@ -178,7 +178,7 @@ Location: https://www.google.com
 Vary: Accept
 Content-Type: text/plain; charset=utf-8
 Content-Length: 51
-Date: Sun, 01 Dec 2019 04:12:42 GMT
+Date: Sun, 01 May 2022 04:12:42 GMT
 Connection: keep-alive
 
 ```
@@ -202,7 +202,7 @@ Content-Security-Policy: default-src 'none'
 X-Content-Type-Options: nosniff
 Content-Type: text/html; charset=utf-8
 Content-Length: 161
-Date: Sun, 01 Dec 2019 04:19:59 GMT
+Date: Sun, 01 May 2022 04:19:59 GMT
 Connection: keep-alive
 ```
 
@@ -215,7 +215,7 @@ X-Powered-By: Express
 Content-Type: text/html; charset=utf-8
 Content-Length: 36
 ETag: W/"24-McFqDuqGs59+mapmWEij+mNIdb0"
-Date: Sun, 01 Dec 2019 04:20:17 GMT
+Date: Sun, 01 May 2022 04:20:17 GMT
 Connection: keep-alive
 
 $ curl http://192.168.56.101:8000/d5njkR83x
@@ -229,8 +229,11 @@ Do not have record of the shortenUrl
 # Optimal design
 ![Test Image 1](https://raw.githubusercontent.com/myclau/3ccbdshqcz-shortmyurl/master/shortmyurl_api_design.png)
 
-1. should have a loadbalancer in front of the apis
-2. the api can be replicate as many as need (can use k8s or something like aws autoscaling group)
-3. set one of the mongo db is enough for this api as the information is quite narrow to only its function, but need to consider the resilient
-4. if avaliable For GET  request use read replica , For POST request use read-write replica
+1. should have a gateway which include WAF as basic security
+2. should have a loadbalancer in front of the apis to do loadbalancing
+3. use  k8s or something like aws autoscaling group or ecs to hosting the api
+3. the api can be replicate as many as need , basic on the use (set up autoscaling with threshold) 
+4. set one of the mongo db is enough for this api as the information is quite narrow to only its function, but need to consider the resilient , like active standby instance (standby instance can be the read replica) and data backup
+5. if avaliable For GET  request use read replica , For POST request use read-write replica
+6. setup api health check and send alert if health check fail
 
